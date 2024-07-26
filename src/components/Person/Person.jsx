@@ -1,15 +1,16 @@
-export const Person = ({ person }) => (
-  <section className="Person">
-    <h2 className="Person__name">My name is {person.name}</h2>
-    {person.age !== undefined && (
-      <p className="Person__age">
-        <span>I am {person.age}</span>
-      </p>
-    )}
-    <p className="Person__partner">
-      {person.isMarried === true
-        ? `${person.partnerName} is my ${person.sex === 'm' ? `wife` : `husband`}`
-        : `I am not married`}
-    </p>
-  </section>
-);
+export const Person = ({ person }) => {
+  const { name, age, sex, isMarried, partnerName } = person;
+  const getMaritalStatus = () => {
+    return isMarried
+      ? `${partnerName} is my ${sex === 'm' ? 'wife' : 'husband'}`
+      : 'I am not married';
+  };
+
+  return (
+    <section className="Person">
+      <h2 className="Person__name">My name is {name}</h2>
+      {Boolean(age) && <p className="Person__age">I am {age}</p>}
+      <p className="Person__partner">{getMaritalStatus(isMarried)}</p>
+    </section>
+  );
+};
